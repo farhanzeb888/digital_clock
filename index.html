@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Digital Clock</title>
+    <style>
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(
+          to right,
+          hsl(152, 76%, 43%),
+          hsl(281, 61%, 77%),
+          #74beea,
+          #e33030
+        );
+      }
+      .digital-clock{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 1em;;
+      }
+      .clock {
+        font-size: 8em;
+        color: rgb(0, 0, 0);
+      
+        border-radius: .5em;
+        text-align: center;
+      }
+      .date-info{
+        font-size: 3em;
+        color: rgb(0, 0, 0);
+      } 
+    </style>
+  </head>
+  <body>
+    <div class="digital-clock">
+      <div class="clock">00:00:00</div>
+      <div class="date-info">00D/00M/0000Y</div>
+    </div>
+    <script>
+      function updateClock() {
+        const now = new Date();
+        const hours = now.getHours().toString().padStart(2, "0");
+        const minutes = now.getMinutes().toString().padStart(2, "0");
+        const seconds = now.getSeconds().toString().padStart(2, "0");
+        const timeString = `${hours}:${minutes}:${seconds}`;
+        document.querySelector(".clock").textContent = timeString;
+        setTimeout(updateClock, 1000);
+      }
+      updateClock();
+
+      function updateClockDate() {
+        const now = new Date();
+        const month = (now.getMonth() + 1).toString().padStart(2, "0");
+        const day = now.getDate().toString().padStart(2, "0");
+        const year = now.getFullYear();
+        const dateString = `${day}/${month}/${year}`;
+        document.querySelector(".date-info").textContent = dateString;
+        setInterval(updateClockDate, 1000 * 60 * 60 * 24);
+      }
+      updateClockDate();
+    </script>
+  </body>
+</html>
